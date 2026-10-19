@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blog_id.title }}</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .card { max-width: 600px; margin: 30px auto; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-top: 0; }
+        img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 8px; margin: 15px 0; }
+        .meta { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 10px; }
+        .author { font-weight: bold; color: #e67e22; }
+        .likes-count { background: #e74c3c; color: white; padding: 6px 12px; border-radius: 15px; display: inline-block; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>{{ blog_id.title }}</h1>
+        <p>{{ blog_id.description }}</p>
+        
+        {% if blog_id.image %}
+            <img src="{{ blog_id.image.url }}" alt="{{ blog_id.title }}">
+        {% endif %}
+        
+        <p class="author">Автор: {{ blog_id.author }}{% if blog_id.author == 'Ivanov Ivan' %} (Главный редактор){% endif %}</p>
+
+        <div class="meta">
+            <p>Создано: {{ blog_id.created_at }}</p>
+            {% if blog_id.updated_at %}
+                <p>Обновлено: {{ blog_id.updated_at }}</p>
+            {% endif %}
+        </div>
+
+        <div class="likes-count">
+            ❤️ Просмотров / Лайков: {{ blog_id.likes }}
+        </div>
+    </div>
+</body>
+</html>

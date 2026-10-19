@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список блогов</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        h1 { text-align: center; color: #2c3e50; }
+        .blog-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; list-style: none; padding: 0; }
+        .blog-card { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; padding: 15px; box-sizing: border-box; }
+        .blog-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 6px; }
+        .blog-card h2 { font-size: 1.2rem; margin: 10px 0; color: #2c3e50; }
+        .blog-card p { font-size: 0.85rem; color: #7f8c8d; }
+        .blog-card a { display: inline-block; margin-top: 10px; padding: 8px 12px; background-color: #3498db; color: white; text-decoration: none; border-radius: 4px; }
+        .blog-card a:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <h1>Список блогов</h1>
+    <ul class="blog-container">
+        {% for i in blog %}
+        <li class="blog-card">
+            <h2>{{ i.title }}</h2>
+            {% if i.image %}
+                <img src="{{ i.image.url }}" alt="{{ i.title }}">
+            {% endif %}
+            <p>Дата публикации: {{ i.created_at }}</p>
+            <a href="{% url 'blog_detail' i.id %}">Подробнее</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
