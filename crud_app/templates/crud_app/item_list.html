@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Список</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .btn { padding: 8px 15px; text-decoration: none; border-radius: 4px; color: white; display: inline-block; margin-right: 5px; }
+        .btn-green { background: #28a745; }
+        .btn-red { background: #dc3545; border: none; cursor: pointer; }
+        .btn-blue { background: #007bff; }
+        .item-card { border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Управление элементами (CRUD)</h1>
+    <a href="{% url 'item_create' %}" class="btn btn-green">+ Добавить элемент</a>
+    <a href="{% url 'export_tests' %}" class="btn btn-blue">📥 Скачать тесты в Word</a>
+
+    <hr style="margin: 20px 0;">
+
+    {% for item in items %}
+        <div class="item-card">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.content }}</p>
+            <form action="{% url 'item_delete' item.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-red" onclick="return confirm('Удалить?')">Удалить</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>Записей пока нет.</p>
+    {% endfor %}
+</body>
+</html>
